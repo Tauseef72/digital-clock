@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-[#434a54]">
+    <div class="w-full h-lvh flex flex-col justify-center items-center">
+      <div class="flex justify-center items-center">
+        <div
+          class="h-[130px] w-[250px] border-l-8 border-l-[#03cc98] flex flex-col md:h-[300px] md:w-[600px]"
+        >
+          <div
+            id="heading"
+            class="bg-[#1c1d21] p-2 px-5 md:p-6 md:px-12 text-white text-2px md:text-4xl"
+          >
+            Time is Money!
+          </div>
+          <div
+            class="bg-[#1d2124] flex-1 overflow-hidden flex-col flex items-center justify-center text-white"
+          >
+            <div id="24clock" class="text-3xl gap-6 md:text-7xl">
+              <span id="hr">00</span>
+              <span>:</span>
+              <span id="min">00</span>
+              <span>:</span>
+              <span id="sec">00</span>
+            </div>
+            <div id="stopwatch" class="text-3xl gap-6 md:text-7xl">
+              <span id="stophr">00</span>
+              <span>:</span>
+              <span id="stopmin">00</span>
+              <span>:</span>
+              <span id="stopsec">00</span>
+            </div>
+            <div id="c12" class="text-3xl gap-6 md:text-7xl">
+              <span id="hr12">00</span>
+              <span>:</span>
+              <span id="min12">00</span>
+              <span>:</span>
+              <span id="sec12">00</span>
+            </div>
+            <div
+              class="flex gap-8 text-[11px] mt-1 md:gap-24 mr-2 md:mr-3 md:mt-2"
+            >
+              <span>HOURS</span>
+              <span>MIN</span>
+              <span>SEC</span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-col h-[132px] md:h-[302px] bg-[#06a67e] justify-between"
+        >
+          <button
+            class="bg-[#03cc98] text-3xl md:text-5xl p-[2px] md:p-4 md:py-5 font-bold"
+          >
+            +
+          </button>
+          <button
+            id="st-time"
+            class="flex flex-col justify-center items-center"
+          >
+            <span
+              class="material-symbols-outlined text-2xl md:text-7xl font-bold"
+            >
+              arrow_right
+            </span>
+            <!-- <span class="text-[10px] md:text-sm mt-0">start</span> -->
+          </button>
+          <button
+            id="sp-time"
+            class="flex flex-col justify-center items-center"
+          >
+            <span
+              class="material-symbols-outlined text-2xl md:text-5xl font-bold"
+            >
+              stop
+            </span>
+            <span class="text-[10px] md:text-sm mt-0 mb-1">stop</span>
+          </button>
+        </div>
+      </div>
+      <div id="main-btn" class="flex justify-center items-center gap-5 mt-5">
+        <button
+          id="stop-watch-btn"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 rounded-md font-bold text-slate-200 mr-5"
+        >
+          Stop Watch
+        </button>
+        <button
+          id="btn12"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 rounded-md font-bold text-slate-200"
+        >
+          Time 12hr
+        </button>
+      </div>
+
+      <div id="btn-12" class="flex justify-center items-center gap-5 mt-5">
+        <button
+          id="stop-watch-btn2"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 rounded-md font-bold text-slate-200 mr-5"
+        >
+          Stop Watch
+        </button>
+        <button
+          id="btn24"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 rounded-md font-bold text-slate-200"
+        >
+          Time 24hr
+        </button>
+      </div>
+      <div
+        id="stopwatch-click"
+        class="flex justify-center items-center gap-5 mt-5"
+      >
+        <button
+          id="startSW"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 md:px-6 rounded-md font-bold text-slate-200"
+        >
+          Start
+        </button>
+        <button
+          id="stopSW"
+          class="bg-[#06a67e] shadow-2xl mx-4 p-2 md:p-3 md:px-6 rounded-md font-bold text-slate-200"
+        >
+          Stop
+        </button>
+        <button
+          id="back"
+          class="bg-[#06a67e] shadow-2xl p-2 md:p-3 md:px-6 rounded-md font-bold text-slate-200"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+    <script>
+      // Digital clock
+
+      let $hrs = document.getElementById("hr");
+      let $min = document.getElementById("min");
+      let $sec = document.getElementById("sec");
+
+      function clock24() {
+        let currentTime = new Date();
+
+        $hrs.innerHTML = currentTime.getHours().toString().padStart(2, "0");
+        $min.innerHTML = currentTime.getMinutes().toString().padStart(2, "0");
+        $sec.innerHTML = currentTime.getSeconds().toString().padStart(2, "0");
+      }
+
+      clock24 = setInterval(clock24, 1000);
+      function heading24() {
+        $heading.innerHTML = "Time is Money!";
+      }
+
+      function setClock24() {
+        clock24 = setInterval(clock24, 1000);
+      }
+
+      // Stop Watch
+
+      let $heading = document.getElementById("heading");
+      let $sw = document.getElementById("stop-watch-btn");
+      let $stopWatchClick = document.getElementById("stopwatch-click");
+      let $mainbtn = document.getElementById("main-btn");
+      let $24clock = document.getElementById("24clock");
+      let $stopW = document.getElementById("stopwatch");
+      let $stophr = document.getElementById("stophr");
+      let $stopmin = document.getElementById("stopmin");
+      let $stopsec = document.getElementById("stopsec");
+      let $c12 = document.getElementById("c12");
+      let $sw2 = document.getElementById("stop-watch-btn2");
+
+      $stopW.style.display = "none";
+      $stopWatchClick.style.display = "none";
+      $c12.style.display = "none";
+
+      function headingStop() {
+        $heading.innerHTML = "Stop Watch";
+      }
+
+      console.log();
+
+      function stopwatcht() {
+        $stopW.style.display = "block";
+        $24clock.style.display = "none";
+        $stopWatchClick.style.display = "block";
+        $mainbtn.style.display = "none";
+        $c12.style.display = "none";
+        $divbtn12.style.display = "none";
+      }
+
+      function showclock24() {
+        $stopW.style.display = "none";
+        $24clock.style.display = "block";
+        $stopWatchClick.style.display = "none";
+        $mainbtn.style.display = "block";
+        $c12.style.display = "none";
+        $divbtn12.style.display = "none";
+      }
+
+      function show12clock() {
+        $stopW.style.display = "none";
+        $24clock.style.display = "none";
+        $stopWatchClick.style.display = "none";
+        $mainbtn.style.display = "none";
+        $c12.style.display = "block";
+        $divbtn12.style.display = "block";
+      }
+
+      // stop watch btn
+
+      $sw.onclick = function () {
+        headingStop();
+        stopwatcht();
+      };
+
+      $sw2.onclick = function () {
+        headingStop();
+        stopwatcht();
+      };
+
+      // Start Stopwatch
+
+      let stopwatchhours = 0;
+      let stopwatchmins = 0;
+      let stopwatchsecs = 0;
+      let stopwatchms = 0;
+      let stopwatchRuning = false;
+
+      function stopwatch() {
+        stopwatchms++;
+        if (stopwatchms === 100) {
+          stopwatchsecs++;
+          stopwatchms = 0;
+        }
+        if (stopwatchsecs === 60) {
+          stopwatchmins++;
+          stopwatchsecs = 0;
+        }
+        if (stopwatchmins === 60) {
+          stopwatchhours++;
+          stopwatchmins = 0;
+        }
+
+        $stophr.innerHTML = stopwatchhours.toString().padStart(2, "0");
+        $stopmin.innerHTML = stopwatchmins.toString().padStart(2, "0");
+        $stopsec.innerHTML = stopwatchsecs.toString().padStart(2, "0");
+      }
+
+      function startstopw() {
+        if (!stopwatchRuning) {
+          stopwatch = setInterval(stopwatch, 10);
+          stopwatchRuning = true;
+        }
+      }
+      function stopstopw() {
+        if (stopwatchRuning) {
+          clearInterval(stopwatch);
+          stopwatchRuning = false;
+        }
+      }
+
+      let $startSW = document.getElementById("startSW");
+      let $stopSW = document.getElementById("stopSW");
+      let $back = document.getElementById("back");
+
+      // start button
+
+      $startSW.onclick = function () {
+        startstopw();
+      };
+
+      // stopbutton
+
+      $stopSW.onclick = function () {
+        stopstopw();
+      };
+
+      // back button
+
+      $back.onclick = function () {
+        heading24();
+        setClock24();
+        showclock24();
+      };
+      // clock 12hours
+
+      let $btn12 = document.getElementById("btn12");
+      let $btn24 = document.getElementById("btn24");
+      let $divbtn12 = document.getElementById("btn-12");
+      let $hr12 = document.getElementById("hr12");
+      let $min12 = document.getElementById("min12");
+      let $sec12 = document.getElementById("sec12");
+
+      $divbtn12.style.display = "none";
+
+      function changeTimeFormat() {
+        let date = new Date();
+
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+
+        let newformat = hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12;
+
+        hours = hours ? hours : 12;
+        $hr12.innerHTML = hours.toString().padStart(2, "0");
+        $min12.innerHTML = minutes.toString().padStart(2, "0");
+        $sec12.innerHTML = seconds.toString().padStart(2, "0");
+      }
+
+      function setClock12() {
+        changeTimeFormat = setInterval(changeTimeFormat, 1000);
+      }
+
+      $btn12.onclick = function () {
+        show12clock();
+        setClock12();
+      };
+
+      $btn24.onclick = function () {
+        heading24();
+        setClock24();
+        showclock24();
+      };
+
+      // start stop side btn
+
+      let $sttime = document.getElementById("st-time");
+      let $sptime = document.getElementById("sp-time");
+
+      $sptime.onclick = function () {
+        clearInterval(clock24);
+        clearInterval(changeTimeFormat);
+      };
+    </script>
+  </body>
+</html>
